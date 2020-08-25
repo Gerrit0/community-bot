@@ -86,6 +86,22 @@
   dependencies:
     "@types/node" "*"
 
+"@typescript/twoslash@^0.6.2":
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/@typescript/twoslash/-/twoslash-0.6.2.tgz#6e1d3635a92bf97c145cf31ea90e78fb9e21cee8"
+  integrity sha512-vKuOi55XEe/lZ8Pi0au2ihofgmPrujaOPCTqonqa5QSD3sG2NWWOPhNjNWtxuIAQ+LKrS5FVRxK8cGUgbrjEhA==
+  dependencies:
+    "@typescript/vfs" "1.1.2"
+    debug "^4.1.1"
+    lz-string "^1.4.4"
+
+"@typescript/vfs@1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@typescript/vfs/-/vfs-1.1.2.tgz#750e30343ea706ff52cae5b7865c8cacc92bf3a2"
+  integrity sha512-5VOXMjAMc9W0XnW+DNskn+kR0ytIzigLlK9Bfj4oSOQdWAehrmwJ8Xm0Q/YFmYsMCt+N9UosLJVGLpgyrAVqwg==
+  dependencies:
+    debug "^4.1.1"
+
 abort-controller@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/abort-controller/-/abort-controller-3.0.0.tgz#eaf54d53b62bae4138e809ca225c8439a6efb392"

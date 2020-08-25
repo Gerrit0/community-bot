@@ -5,9 +5,10 @@ import {
 	Module,
 	optional,
 } from 'cookiecord';
-import { Message, MessageEmbed } from 'discord.js';
+import { Message, MessageEmbed, TextChannel } from 'discord.js';
 import { compressToEncodedURIComponent } from 'lz-string';
 import { TS_BLUE } from '../env';
+import { findCodeblockFromChannel } from '../util/findCodeblockFromChannel';
 
 export default class PlaygroundModule extends Module {
 	constructor(client: CookiecordClient) {
@@ -19,22 +20,19 @@ export default class PlaygroundModule extends Module {
 
 	@command({ aliases: ['pg', 'playg'], single: true })
 	async playground(msg: Message, @optional code?: string) {
-		const CODEBLOCK_REGEX = /```(?:ts|typescript)?\n([\s\S]+)```/gm;
 		const PLAYGROUND_BASE = 'https://www.typescriptlang.org/play/#code/';
+
 		if (!code) {
-			const msgs = (
-				await msg.channel.messages.fetch({ limit: 10 })
-			).array();
-			msgs.pop(); // dont care about the user's request for t!pg now
-			code = msgs
-				.map(m => CODEBLOCK_REGEX.exec(m.content))
-				.map(x => (x ? x[1] : ''))
-				.filter(x => x !== '')[0];
-			if (!code)
-				return await msg.channel.send(
-					":warning: couldn't find a codeblock!",
-				);
+			const found = await findCodeblockFromChannel(
+				msg.channel as TextChannel,
+			);
+
+			if (!found)
+				return msg.channel.send(`:warning: couldn't find a codeblock!`);
+
+			code = found;
 		}
+
 		const embed = new MessageEmbed()
 			.setURL(PLAYGROUND_BASE + compressToEncodedURIComponent(code))
 			.setTitle('View in Playground')
